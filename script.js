@@ -1,4 +1,5 @@
 const Peer = window.Peer;
+var dataConnection;
 (async function main() {
     const localVideo = document.getElementById('js-local-video');
     const localId = document.getElementById('js-local-id');
@@ -8,7 +9,6 @@ const Peer = window.Peer;
     const callTrigger = document.getElementById('js-call-trigger');
     const closeTrigger = document.getElementById('js-close-trigger');
     const dataTrigger = document.getElementById('data-trigger');
-
     const localStream = await navigator.mediaDevices.getUserMedia({
         video: true,
         audio: false,
@@ -56,48 +56,38 @@ const Peer = window.Peer;
         var keyName = event.key;
         console.log(keyName);
         if (event.key=='ArrowRight') {
-            const dataConnection = peer.connect(remoteId.value);
             posX=posX+15;
-            console.log(posX)
-            dataConnection.on("open", () => {
                 const data = {
                     c: c,
                     X: posX,
                     Y: posY,
                   };
-                dataConnection.send(data)
-              });
+            dataConnection.send(data);
         } else if (event.key=='ArrowLeft') {
-            const dataConnection = peer.connect(remoteId.value);
             posX=posX-15;
-            dataConnection.on("open", () => {
                 const data = {
                     opc: c,
                     X: posX,
                     Y: posY,
                   };
-                dataConnection.send(data)
-              });
+                dataConnection.send(data);
         } else {
         }
       });
 
     dataTrigger.addEventListener('click',() => {
-        const dataConnection = peer.connect(remoteId.value);
-        dataConnection.on("open", () => {
             const data = {
                 opc: c,
                 X: posX,
                 Y: posY,
               };
             dataConnection.send(data)
-            console.log("send");
-          });
     });
 
     callTrigger.addEventListener('click', () => {
         const mediaConnection = peer.call(remoteId.value, localStream);
         connectedId.textContent = mediaConnection.remoteId;
+        dataConnection = peer.connect(remoteId.value);
       
 
         mediaConnection.on('stream', stream => {

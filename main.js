@@ -51,7 +51,7 @@ function drawLoop() {
     context.translate(canvas.width, 0);
     context.scale(-1,1);  
 }
-    drawLoop();                                             // drawLoop 関数をトリガー
+    drawLoop();                                    
 function drawchara(x,y,img){
     context.drawImage(img,x,y,200,200);
 }

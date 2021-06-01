@@ -47,10 +47,11 @@ console.log(connected);
     });
     
     peer.on("connection", dataConnection => {
-        dataConnection.on("data", ({opc,X,Y}) => {
+        dataConnection.on("data", ({opc,X,Y,hp}) => {
             posOX=X;
             posOY=Y;
             o=opc;
+            ohp=hp;
           });
       });
       
@@ -63,6 +64,7 @@ console.log(connected);
                     c: c,
                     X: posX,
                     Y: posY,
+                    hp: myhp,
                   };
             dataConnection.send(data);
         } else if (event.key=='ArrowLeft') {
@@ -71,10 +73,10 @@ console.log(connected);
                     opc: c,
                     X: posX,
                     Y: posY,
+                    hp: myhp,
                   };
                 dataConnection.send(data);
-        } else {
-        }
+                }
       });
 
     dataTrigger.addEventListener('click',() => {
@@ -82,6 +84,7 @@ console.log(connected);
                 opc: c,
                 X: posX,
                 Y: posY,
+                hp: myhp,
               };
             dataConnection.send(data)
     });
@@ -90,6 +93,8 @@ console.log(connected);
         const mediaConnection = peer.call(remoteId.value, localStream);
         connectedId.textContent = mediaConnection.remoteId;
         dataConnection = peer.connect(remoteId.value);
+        dataConnection.on('open',()=> {
+            });
         connected=true;
 
         mediaConnection.on('stream', stream => {

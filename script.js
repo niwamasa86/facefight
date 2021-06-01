@@ -1,5 +1,7 @@
 const Peer = window.Peer;
 var dataConnection;
+var connected=false;
+console.log(connected);
 (async function main() {
     const localVideo = document.getElementById('js-local-video');
     const localId = document.getElementById('js-local-id');
@@ -88,7 +90,7 @@ var dataConnection;
         const mediaConnection = peer.call(remoteId.value, localStream);
         connectedId.textContent = mediaConnection.remoteId;
         dataConnection = peer.connect(remoteId.value);
-      
+        connected=true;
 
         mediaConnection.on('stream', stream => {
             remoteVideo.srcObject = stream;

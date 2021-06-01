@@ -1,7 +1,9 @@
 var canvas = document.getElementById("canvas");  
 var context = canvas.getContext("2d");   
-var Imageme = new Image();                           
-var Imageyou = new Image();   
+var Imageme =  new Image();                           
+var Imageyou = new Image(); 
+var Imagetop= new Image();  
+Imagetop.src="images/top.png";
 var posX=100;
 var posY=500;
 var posOX=100;
@@ -50,6 +52,9 @@ function drawLoop() {
     drawchara(posOX,posOY,Imageyou); 
     context.translate(canvas.width, 0);
     context.scale(-1,1);  
+    if(connected==false){
+     context.drawImage(Imagetop,0,100,1000,600);
+    }
 }
     drawLoop();                                    
 function drawchara(x,y,img){

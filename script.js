@@ -57,7 +57,6 @@ console.log(connected);
       
     document.addEventListener('keydown', (event) => {
         var keyName = event.key;
-        console.log(keyName);
         if (event.key=='ArrowRight') {
             posX=posX+15;
                 const data = {

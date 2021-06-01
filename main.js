@@ -83,7 +83,6 @@ function drawLoop() {
     clickMe.click();
     preC=c;
     }
-    console.log(o);
     drawchara(posX,posY,Imageme); 
     context.scale(-1,1);  
     context.translate(-canvas.width, 0);

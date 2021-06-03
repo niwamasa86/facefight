@@ -28,10 +28,8 @@ function drawLoop() {
           Imageme.src="images/kick.png";
         } else if (c == 4) {
           Imageme.src="images/out.png";
-          
-          console.log(posOX+posX);
-          if(700-posOX-posX<0){
-            console.log("hey2");
+          if(650-posOX-posX<0){
+           
               if(o==2){
                   if(myhp>0){
                       myhp=myhp-20;
@@ -48,8 +46,8 @@ function drawLoop() {
           }
         } else if (c == 5) {
           Imageme.src="images/out.png";
-          if(700-posOX-posX<0){
-            console.log("hey2");
+          if(650-posOX-posX<0){
+           
               if(o==2){
                   if(myhp>0){
                       myhp=myhp-20;
@@ -65,7 +63,6 @@ function drawLoop() {
               }
         }   
     }        
-    console.log(posOX+posX);
     if (o == 0) {
             Imageyou.src="images/guard.png";
         } else if (o == 1) {

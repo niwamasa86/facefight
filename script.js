@@ -57,7 +57,7 @@ console.log(connected);
       
     document.addEventListener('keydown', (event) => {
         var keyName = event.key;
-        if (event.key=='ArrowRight') {
+        if (keyName=='ArrowRight') {
             posX=posX+15;
                 const data = {
                     c: c,
@@ -66,7 +66,7 @@ console.log(connected);
                     hp: myhp,
                   };
             dataConnection.send(data);
-        } else if (event.key=='ArrowLeft') {
+        } else if (keyName=='ArrowLeft') {
             posX=posX-15;
                 const data = {
                     opc: c,
@@ -112,6 +112,5 @@ console.log(connected);
             mediaConnection.close(true);
         });
     });
-
     peer.on('error', console.error);
 })();

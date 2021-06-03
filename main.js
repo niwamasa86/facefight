@@ -77,6 +77,7 @@ function drawLoop() {
         } else if (o == 5) {
             Imageyou.src="images/out.png";
         }
+    context.fillStyle = "rgb(5, 255, 20)";
     context.fillRect(20,140,myhp,40);
     context.fillRect(500,140,ohp,40);
     if(c!==preC){
@@ -92,7 +93,6 @@ function drawLoop() {
     if(connected==false){
      context.drawImage(Imagetop,0,100,1000,600);
     }else{
-
     }
 }
     drawLoop();                                    

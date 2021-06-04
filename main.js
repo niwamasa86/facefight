@@ -90,7 +90,7 @@ function drawLoop() {
     context.translate(canvas.width, 0);
     context.scale(-1,1);  
     if(connected==false){
-     context.drawImage(Imagetop,0,100,1000,600);
+    //  context.drawImage(Imagetop,0,100,1000,600);
     }else{
     }
 }

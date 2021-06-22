@@ -15,7 +15,7 @@
     </div>
     <div class="webcam-box-outer">
       <div class="webcam-box-inner">
-        <video autoplay="" playsinline="" muted="" id="js-local-video" width="224" height="224"></video>
+        <video autoplay="" playsinline="" muted="" style="-webkit-transform: scaleX(-1);" id="js-local-video" width="224" height="224"></video>
       </div>
     </div>
   <div class="controller-container">
@@ -109,11 +109,16 @@
   <div id="webremote">
     <video autoplay="" playsinline="" muted="" id="js-remote-video" width="1000" height="800" ></video>
     <canvas id="canvas" width="1000" height="800"></canvas>
+     <div id="mypic">
+     </div>
+     <div id="oppic">
+      <img src="./images/go.gif">
+     </div>
   </div>
   <script type="text/javascript" src="https://cdn.webrtc.ecl.ntt.com/skyway-latest.js"></script>
   <script type="text/javascript" src="./shared/key.js"></script>
-  <script type="text/javascript" src="./js/script.js"></script>
-  <script type="text/javascript" src="./js/main.js"></script>
+  <script type="text/javascript" src="./js/forconnect.js"></script>
+  <script type="text/javascript" src="./js/forgame.js"></script>
   <script type="text/javascript" src="./js/face-api.js"></script>
   <script type="text/javascript" src="./js/trend.js"></script>
   <script type="text/javascript" src="./js/classification.js"></script> 

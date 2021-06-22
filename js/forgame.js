@@ -4,32 +4,58 @@ var Imageme =  new Image();
 var Imageyou = new Image(); 
 var Imagetop= new Image();  
 Imagetop.src="images/top.png";
+var images = [
+    "images/go.gif",
+    "images/back.gif"
+]
 var posX=100;
 var posY=500;
-var posOX=100;
+var posOX=700;
 var posOY=500;
 var c=0;
 let preC=0;
 var o=0;
 var myhp=300;
 var ohp=300;
+var oF=0;
 var clickMe = document.getElementById("data-trigger");
+window.onload = function(){
+    getImages();
+}
 function drawLoop() {
     requestAnimationFrame(drawLoop);                      // drawLoop 関数を繰り返し実行
     context.clearRect(0, 0, canvas.width, canvas.height); // canvas をクリア   
     c=document.getElementById('prediction').innerText; 
-    if (c == 0) {
-          Imageme.src="images/guard.png";
+    if (F>0){
+        if(posX<posOX-50){
+            posX=posX+F;
+        }
+        document.getElementById("mypic").style.left = posX+"px";
+        document.getElementById("mypic").style.transform = "scale(1,1)";
+        document.getElementById('mypic').innerHTML = "<img src='./images/go.gif'>";
+        
+    }else if(F<0){
+        if(posX>0){
+            posX=posX+F;
+        }
+        document.getElementById("mypic").style.transform = "scale(1,1)";
+        document.getElementById("mypic").style.left = posX+"px";
+        document.getElementById('mypic').innerHTML = "<img src='./images/back.gif'>";
+    }else if (c == 0) {
+        document.getElementById("mypic").style.transform = "scale(1.1,1.1)";
+        document.getElementById('mypic').innerHTML = "<img src='./images/guard.gif'>";
         } else if (c == 1) {
-          Imageme.src="images/energy_ha.png";
+        document.getElementById("mypic").style.transform = "scale(1,1)";
+        document.getElementById("mypic").style.left = posX+"px";
+        document.getElementById('mypic').innerHTML = "<img src='./images/shuri.gif'>";
         } else if (c == 2) {
-        　Imageme.src="images/kick.png";
+        document.getElementById("mypic").style.transform = "scale(1.0,1.0)";
+        document.getElementById('mypic').innerHTML = "<img src='./images/kick.gif'>";
+       
         } else if (c == 3) {
-          Imageme.src="images/kick.png";
+        
         } else if (c == 4) {
-          Imageme.src="images/out.png";
           if(650-posOX-posX<0){
-           
               if(o==2){
                   if(myhp>0){
                       myhp=myhp-20;
@@ -45,7 +71,6 @@ function drawLoop() {
               }
           }
         } else if (c == 5) {
-          Imageme.src="images/out.png";
           if(650-posOX-posX<0){
            
               if(o==2){
@@ -63,18 +88,27 @@ function drawLoop() {
               }
         }   
     }        
-    if (o == 0) {
-            Imageyou.src="images/guard.png";
+    if (oF>0){
+        document.getElementById("oppic").style.left = posOX+"px";
+        document.getElementById("oppic").style.transform = "scale(-1,1)";
+        document.getElementById('oppic').innerHTML = "<img src='./images/go.gif'>";
+    }else if(oF<0){
+        document.getElementById("oppic").style.transform = "scale(-1,1)";
+        document.getElementById("oppic").style.left = posOX+"px";
+        document.getElementById('oppic').innerHTML = "<img src='./images/back.gif'>";
+    }else if (o == 0) {
+        document.getElementById("oppic").style.transform = "scale(-1.1,1.1)";
+        document.getElementById('oppic').innerHTML = "<img src='./images/guard.gif'>";
         } else if (o == 1) {
-            Imageyou.src="images/energy_ha.png";
+            
         } else if (o == 2) {
-            Imageyou.src="images/kick.png";
+         
         } else if (o == 3) {
-            Imageme.src="images/kick.png";
+           
         } else if (o == 4) {
-            Imageyou.src="images/out.png";
+            
         } else if (o == 5) {
-            Imageyou.src="images/out.png";
+
         }
     context.fillStyle = "rgb(5, 255, 20)";
     context.fillRect(20,140,myhp,40);
@@ -97,4 +131,11 @@ function drawLoop() {
     drawLoop();                                    
 function drawchara(x,y,img){
     context.drawImage(img,x,y,200,200);
+}
+
+function getImages(){
+    for (i = 0; i < images.length; i++){
+        var img = document.createElement('img');
+        img.src = images[i];
+    }
 }

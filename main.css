@@ -1,10 +1,18 @@
 canvas {
   vertical-align: top; 
 } 
-#p5sketch {
-  vertical-align: top; 
-  display:inline-block;
+#mypic {
+  position: absolute;
+  top: 500px;
+  left: 15px;
 } 
+#oppic {
+  position: absolute;
+  top: 500px;
+  left: 700px;
+  transform: scale(-1, 1);
+} 
+
 #trainer {
   vertical-align: top; 
   display:inline-block;

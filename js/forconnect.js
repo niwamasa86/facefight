@@ -46,14 +46,14 @@ var connected=false;
     });
     
     peer.on("connection", dataConnection => {
-        dataConnection.on("data", ({opc,X,Y,hp}) => {
+        dataConnection.on("data", ({opc,X,Y,hp,oF}) => {
             posOX=X;
             posOY=Y;
             o=opc;
             ohp=hp;
+            oF=oF;
           });
       });
-      
     // document.addEventListener('keydown', (event) => {
     //     var keyName = event.key;
     //     if (keyName=='ArrowRight') {
@@ -82,17 +82,16 @@ var connected=false;
     //   });
     
     dataTrigger.addEventListener('click',() => {
-            posX=posX+F;
             const data = {
                 opc: c,
                 X: posX,
                 Y: posY,
                 hp: myhp,
+                oF:F,
               };
             if(connected){
             dataConnection.send(data)
             }
-           
     });
 
     callTrigger.addEventListener('click', () => {

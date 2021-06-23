@@ -70,15 +70,21 @@ function drawLoop() {
         document.getElementById("oppic").style.transform = "scale(-1.1,1.1)";
         document.getElementById('oppic').innerHTML = "<img src='./images/guard.gif'>";
         } else if (o == 1) {
-            
+        document.getElementById("oppic").style.transform = "scale(-1,1)";
+        document.getElementById("oppic").style.left = posOX+"px";
+        document.getElementById("oppic").innerHTML = "<img src='./images/iwanage.gif'>";
         } else if (o == 2) {
-         
+        document.getElementById("oppic").style.transform = "scale(-1.0,1.0)";
+        document.getElementById("oppic").innerHTML = "<img src='./images/shuri.gif'>";
         } else if (o == 3) {
-           
+        document.getElementById("oppic").style.transform = "scale(-1.0,1.0)";
+        document.getElementById("oppic").innerHTML = "<img src='./images/kick.gif'>";
         } else if (o == 4) {
-            
+        document.getElementById("oppic").style.transform = "scale(-1.0,1.0)";
+        document.getElementById("oppic").innerHTML = "<img src='./images/panchi.gif'>";
         } else if (o == 5) {
-
+        document.getElementById("oppic").style.transform = "scale(-1.0,1.0)";
+        document.getElementById("oppic").innerHTML = "<img src='./images/upper.gif'>";
         }
     if(fly.length>=1){
         for(let i=0;i<fly.length;i++){

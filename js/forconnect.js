@@ -46,12 +46,11 @@ var connected=false;
     });
     
     peer.on("connection", dataConnection => {
-        dataConnection.on("data", ({opc,X,Y,hp,oF}) => {
+        dataConnection.on("data", ({opc,X,hp,ooF}) => {
             posOX=X;
-            posOY=Y;
             o=opc;
             ohp=hp;
-            oF=oF;
+            oF=ooF;
           });
       });
     // document.addEventListener('keydown', (event) => {
@@ -84,10 +83,9 @@ var connected=false;
     dataTrigger.addEventListener('click',() => {
             const data = {
                 opc: c,
-                X: posX,
-                Y: posY,
+                X: 800-posX,
                 hp: myhp,
-                oF:F,
+                ooF:F,
               };
             if(connected){
             dataConnection.send(data)

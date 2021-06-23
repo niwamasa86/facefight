@@ -1,6 +1,22 @@
 canvas {
   vertical-align: top; 
 } 
+#fly0 {
+  position: absolute;
+  top: 200px;
+  left: 15px;
+} 
+#fly1 {
+  position: absolute;
+  top: 500px;
+  left: 15px;
+} 
+#fly2 {
+  position: absolute;
+  top: 500px;
+  left: 15px;
+} 
+
 #mypic {
   position: absolute;
   top: 500px;

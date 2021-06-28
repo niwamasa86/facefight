@@ -9,7 +9,6 @@ var connected=false;
     const connectedId = document.getElementById('js-connected-id');
     const callTrigger = document.getElementById('js-call-trigger');
     const closeTrigger = document.getElementById('js-close-trigger');
-    const dataTrigger = document.getElementById('data-trigger');
     const localStream = await navigator.mediaDevices.getUserMedia({
         video: true,
         audio: false,
@@ -46,11 +45,14 @@ var connected=false;
     });
     
     peer.on("connection", dataConnection => {
-        dataConnection.on("data", ({opc,X,hp,ooF}) => {
+        dataConnection.on("data", ({ohap,oneu,opc,X,hp,ooF,flar}) => {
+            ohappy=ohap;
+            oneutral=oneu;
             posOX=X;
             o=opc;
             ohp=hp;
             oF=ooF;
+            opfl=flar;
           });
       });
     // document.addEventListener('keydown', (event) => {
@@ -79,18 +81,112 @@ var connected=false;
     //             }
     //             }
     //   });
-    
-    dataTrigger.addEventListener('click',() => {
+    setInterval(senddata,30);
+    function senddata() {
+        c=predict.innerText; 
+        if(happy>0.8){
+            mypic.style.transform = "scale(1,1)";
+            mypic.innerHTML = "<img src='./images/confuse.gif'>";
+        }else if (F>0){
+            if(posX<posOX-100){
+                posX=posX+15;
+            }
+                mypic.style.left = posX+"px";
+                mypic.style.transform = "scale(1,1)";
+                mypic.innerHTML = "<img src='./images/go.gif'>";
+        }else if(F<0){
+            if(posX>0){
+                posX=posX-15;
+            }
+                mypic.style.transform = "scale(1,1)";
+                mypic.style.left = posX+"px";
+                mypic.innerHTML = "<img src='./images/back.gif'>";
+        }else if (neutral>0.5) {
+                mypic.style.transform = "scale(1.1,1.1)";
+                mypic.innerHTML = "<img src='./images/guard.gif'>";
+            } else if (c == 1) {
+                mypic.style.transform = "scale(1,1)";
+                mypic.style.left = posX+"px";
+                mypic.innerHTML = "<img src='./images/iwanage.gif'>";
+            if(fly.length<1){
+                fly.push(["R",posX+50]);
+               }
+            } else if (c == 2) {
+                mypic.style.transform = "scale(1.0,1.0)";
+                mypic.innerHTML = "<img src='./images/shuri.gif'>";
+            if(fly.length<1){
+                fly.push(["S",posX+50]);
+               }
+            } else if (c == 3) {
+                mypic.style.transform = "scale(1.0,1.0)";
+                mypic.innerHTML = "<img src='./images/kick.gif'>";
+            } else if (c == 4) {
+                mypic.style.transform = "scale(1.0,1.0)";
+                mypic.innerHTML = "<img src='./images/panchi.gif'>";
+            } else if (c == 5) {
+                mypic.style.transform = "scale(1.0,1.0)";
+                mypic.innerHTML = "<img src='./images/upper.gif'>";
+        }        
+        if (oF>0){
+             oppic.style.left = posOX+"px";
+             oppic.style.transform = "scale(-1,1)";
+             oppic.innerHTML = "<img src='./images/go.gif'>";
+        }else if(oF<0){
+            oppic.style.transform = "scale(-1,1)";
+            oppic.style.left = posOX+"px";
+            oppic.innerHTML = "<img src='./images/back.gif'>";
+        }else if (ohappy >0.5) {
+            oppic.style.transform = "scale(-1.0,1.0)";
+            oppic.innerHTML = "<img src='./images/confuse.gif'>";
+        } else if (oneutral>0.5) {
+            oppic.style.transform = "scale(-1.1,1.1)";
+            oppic.style.left = posOX+"px";
+            oppic.innerHTML = "<img src='./images/guard.gif'>";
+        }else if (o == 0) {
+            oppic.style.transform = "scale(-1.1,1.1)";
+            oppic.innerHTML = "<img src='./images/guard.gif'>";
+            } else if (o == 1) {
+            oppic.style.transform = "scale(-1,1)";
+            oppic.style.left = posOX+"px";
+            oppic.innerHTML = "<img src='./images/iwanage.gif'>";
+            } else if (o == 2) {
+            oppic.style.transform = "scale(-1.0,1.0)";
+            oppic.innerHTML = "<img src='./images/shuri.gif'>";
+            } else if (o == 3) {
+            oppic.style.transform = "scale(-1.0,1.0)";
+            oppic.innerHTML = "<img src='./images/kick.gif'>";
+            } else if (o == 4) {
+            oppic.style.transform = "scale(-1.0,1.0)";
+            oppic.innerHTML = "<img src='./images/panchi.gif'>";
+            } else if (o == 5) {
+            oppic.style.transform = "scale(-1.0,1.0)";
+            oppic.innerHTML = "<img src='./images/upper.gif'>";
+            }
+        if(fly.length>=1 ||opfl.length>=1){
+            forfly();
+        }else{
+            document.getElementById("fly2").innerText="";
+        }
+       
+        context.fillRect(20,140,myhp,40);
+        context.fillRect(500,140,ohp,40);
+         if(connected==false){
+            hengaoclass();
+        //   context.drawImage(Imagetop,0,100,1000,600);
+         }
             const data = {
+                ohap:happy,
+                oneu:neutral,
                 opc: c,
                 X: 800-posX,
                 hp: myhp,
                 ooF:F,
+                flar:fly,
               };
             if(connected){
             dataConnection.send(data)
             }
-    });
+    };
 
     callTrigger.addEventListener('click', () => {
         const mediaConnection = peer.call(remoteId.value, localStream);

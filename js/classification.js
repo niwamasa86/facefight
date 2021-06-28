@@ -27921,7 +27921,7 @@ var getDenseUnits = function getDenseUnits() {
   return +denseUnitsElement.value;
 };
 var statusElement = document.getElementById('status');
-var commands = new Array('真顔', '岩', '手裏剣','蹴り','パンチ','アッパー');
+var commands = new Array('', '岩', '手裏剣','蹴り','パンチ','アッパー');
 function predictClass(classId) {
   document.body.setAttribute('data-active', 'class' + classId);
   document.getElementById('prediction').innerText =classId;

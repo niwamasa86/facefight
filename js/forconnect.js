@@ -45,12 +45,12 @@ var connected=false;
     });
     
     peer.on("connection", dataConnection => {
-        dataConnection.on("data", ({ohap,oneu,opc,X,hp,ooF,flar}) => {
+        dataConnection.on("data", ({ohap,oneu,opc,X,oohp,ooF,flar}) => {
             ohappy=ohap;
             oneutral=oneu;
             posOX=X;
             o=opc;
-            ohp=hp;
+            myhp=oohp;
             oF=ooF;
             opfl=flar;
           });
@@ -83,31 +83,34 @@ var connected=false;
     //   });
     setInterval(senddata,30);
     function senddata() {
+        brank=brank+1;
         c=predict.innerText; 
-        if(happy>0.8){
+        context.clearRect(0, 0, canvas.width, canvas.height);
+        if(happy>0.9){
             mypic.style.transform = "scale(1,1)";
-            mypic.innerHTML = "<img src='./images/confuse.gif'>";
+            mypic.innerHTML = "<img src='./images/confusem.gif'>";
         }else if (F>0){
             if(posX<posOX-100){
                 posX=posX+15;
             }
                 mypic.style.left = posX+"px";
                 mypic.style.transform = "scale(1,1)";
-                mypic.innerHTML = "<img src='./images/go.gif'>";
+                mypic.innerHTML = "<img src='./images/gom.gif'>";
         }else if(F<0){
             if(posX>0){
                 posX=posX-15;
             }
                 mypic.style.transform = "scale(1,1)";
                 mypic.style.left = posX+"px";
-                mypic.innerHTML = "<img src='./images/back.gif'>";
-        }else if (neutral>0.5) {
+                mypic.innerHTML = "<img src='./images/backm.gif'>";
+        }else if (neutral>0.9) {
                 mypic.style.transform = "scale(1.1,1.1)";
                 mypic.innerHTML = "<img src='./images/guard.gif'>";
             } else if (c == 1) {
                 mypic.style.transform = "scale(1,1)";
                 mypic.style.left = posX+"px";
                 mypic.innerHTML = "<img src='./images/iwanage.gif'>";
+                
             if(fly.length<1){
                 fly.push(["R",posX+50]);
                }
@@ -120,25 +123,28 @@ var connected=false;
             } else if (c == 3) {
                 mypic.style.transform = "scale(1.0,1.0)";
                 mypic.innerHTML = "<img src='./images/kick.gif'>";
+                atack(20);
             } else if (c == 4) {
                 mypic.style.transform = "scale(1.0,1.0)";
                 mypic.innerHTML = "<img src='./images/panchi.gif'>";
+                atack(20);
             } else if (c == 5) {
                 mypic.style.transform = "scale(1.0,1.0)";
                 mypic.innerHTML = "<img src='./images/upper.gif'>";
+                atack(20);
         }        
         if (oF>0){
              oppic.style.left = posOX+"px";
              oppic.style.transform = "scale(-1,1)";
-             oppic.innerHTML = "<img src='./images/go.gif'>";
+             oppic.innerHTML = "<img src='./images/gom.gif'>";
         }else if(oF<0){
             oppic.style.transform = "scale(-1,1)";
             oppic.style.left = posOX+"px";
-            oppic.innerHTML = "<img src='./images/back.gif'>";
-        }else if (ohappy >0.5) {
+            oppic.innerHTML = "<img src='./images/backm.gif'>";
+        }else if (ohappy >0.9) {
             oppic.style.transform = "scale(-1.0,1.0)";
-            oppic.innerHTML = "<img src='./images/confuse.gif'>";
-        } else if (oneutral>0.5) {
+            oppic.innerHTML = "<img src='./images/confusem.gif'>";
+        } else if (oneutral>0.9) {
             oppic.style.transform = "scale(-1.1,1.1)";
             oppic.style.left = posOX+"px";
             oppic.innerHTML = "<img src='./images/guard.gif'>";
@@ -167,7 +173,6 @@ var connected=false;
         }else{
             document.getElementById("fly2").innerText="";
         }
-       
         context.fillRect(20,140,myhp,40);
         context.fillRect(500,140,ohp,40);
          if(connected==false){
@@ -179,7 +184,7 @@ var connected=false;
                 oneu:neutral,
                 opc: c,
                 X: 800-posX,
-                hp: myhp,
+                oohp: ohp,
                 ooF:F,
                 flar:fly,
               };

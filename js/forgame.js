@@ -129,7 +129,7 @@ function forfly(){
             var Elem = document.getElementById("fly1");
             if(fly[i][0]=="R"){
             Elem.style.left =fly[i][1]+"px";
-            Elem.style.top =(300-100*((fly[i]-posX)/(posOX-posX)))+"px";
+            Elem.style.top ="250px";
             Elem.style.width ="20px";
             Elem.style.position ="absolute";
             Elem.style.transform = "scale(0.1,0.1)";
@@ -144,8 +144,23 @@ function forfly(){
             }
             fly[i][1]+=30;
             if(fly[i][1]>=posOX+100){
+                console.log(ohp);
                 fly.splice(i,1);
-                Elem.innerHTML=""; }
+                Elem.innerHTML=""; 
+                if (ohappy>0.95){
+                    ohp=ohp-100;
+                    if (ohp<0){
+                        ohp=0;
+                    }
+                }else if (oneutral>0.95){
+                }else{
+                    ohp=ohp-10
+                    if (ohp<0){
+                        ohp=0;
+                    }
+                }
+                console.log(ohp);
+            }
          }
     }   
     if(opfl.length>0){
@@ -160,7 +175,7 @@ function forfly(){
             Elem.innerHTML="<img src='./images/rock.png'>";
             }else if (opfl[i][0]=="S"){
             Elem.style.left =800-opfl[i][1]+"px";
-            Elem.style.top ="0px";
+            Elem.style.top ="300px";
             Elem.style.width ="20px";
             Elem.style.position ="absolute";
             Elem.style.transform = "scale(0.05,0.05)";
@@ -168,12 +183,33 @@ function forfly(){
             }
          }
     }
-    
   }
+let brank=5;
+function atack(da){
+    if(brank>5){
+    if(posOX-posX<100){
+        if(oneutral>0.95){
+        }else if(ohappy>0.95){
+            ohp=ohp-da*3;
+            if(ohp<0){
+                ohp=0;
+            }
+            brank=0;
+            console.log(ohp)
+        }else{
+            ohp=ohp-da;
+            if(ohp<0){
+                ohp=0;
+            }
+            brank=0;
+        }
+    }
+    }
+}
 
 function hengaoclass(){
-    if(happy>0.5){
-        document.getElementById('prediction').innerText="笑っています";
+    if(happy>0.95){
+        document.getElementById('face').innerText="笑っています";
         document.getElementById('class0').disabled=true;
         document.getElementById('class1').disabled=true;
         document.getElementById('class2').disabled=true;
@@ -181,7 +217,7 @@ function hengaoclass(){
         document.getElementById('class4').disabled=true;
         document.getElementById('class5').disabled=true;
     }else if (F>0){
-        document.getElementById('prediction').innerText="傾いています";
+        document.getElementById('face').innerText="傾いています";
         document.getElementById('class0').disabled=true;
         document.getElementById('class1').disabled=true;
         document.getElementById('class2').disabled=true;
@@ -189,15 +225,15 @@ function hengaoclass(){
         document.getElementById('class4').disabled=true;
         document.getElementById('class5').disabled=true;
     }else if(F<0){
-        document.getElementById('prediction').innerText="傾いています";
+        document.getElementById('face').innerText="傾いています";
         document.getElementById('class0').disabled=true;
         document.getElementById('class1').disabled=true;
         document.getElementById('class2').disabled=true;
         document.getElementById('class3').disabled=true;
         document.getElementById('class4').disabled=true;
         document.getElementById('class5').disabled=true;
-    }else if (neutral>0.5) {
-        document.getElementById('prediction').innerText="真顔すぎます";
+    }else if (neutral>0.9) {
+        document.getElementById('face').innerText="真顔すぎます";
         document.getElementById('class0').disabled=true;
         document.getElementById('class1').disabled=true;
         document.getElementById('class2').disabled=true;
@@ -205,7 +241,7 @@ function hengaoclass(){
         document.getElementById('class4').disabled=true;
         document.getElementById('class5').disabled=true;
     }else{
-        document.getElementById('prediction').innerText="変顔です";
+        document.getElementById('face').innerText="変顔です";
         document.getElementById('class0').disabled=false;
         document.getElementById('class1').disabled=false;
         document.getElementById('class2').disabled=false;

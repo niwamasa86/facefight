@@ -24,6 +24,7 @@ const mypic=document.getElementById("mypic");
 const oppic=document.getElementById("oppic");
 const predict=document.getElementById('prediction');
 context.fillStyle = "rgb(5, 255, 20)";
+var hit = new Audio('images/hit.mp3');
 
 // function drawLoop() {
 //     requestAnimationFrame(drawLoop);                   
@@ -148,12 +149,14 @@ function forfly(){
                 fly.splice(i,1);
                 Elem.innerHTML=""; 
                 if (ohappy>0.95){
+                    hit.play();
                     ohp=ohp-100;
                     if (ohp<0){
                         ohp=0;
                     }
                 }else if (oneutral>0.95){
                 }else{
+                    hit.play();
                     ohp=ohp-10
                     if (ohp<0){
                         ohp=0;
@@ -188,15 +191,18 @@ let brank=5;
 function atack(da){
     if(brank>5){
     if(posOX-posX<100){
-        if(oneutral>0.95){
+      if(oneutral>0.95){
         }else if(ohappy>0.95){
+            hit.play();
             ohp=ohp-da*3;
             if(ohp<0){
                 ohp=0;
             }
             brank=0;
-            console.log(ohp)
+           
         }else{
+            console.log("hey");
+            hit.play();
             ohp=ohp-da;
             if(ohp<0){
                 ohp=0;

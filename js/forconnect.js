@@ -46,6 +46,9 @@ var connected=false;
     
     peer.on("connection", dataConnection => {
         dataConnection.on("data", ({ohap,oneu,opc,X,oohp,ooF,flar}) => {
+            if(oohp<myhp){
+            hit.play();
+            }
             ohappy=ohap;
             oneutral=oneu;
             posOX=X;
@@ -86,7 +89,7 @@ var connected=false;
         brank=brank+1;
         c=predict.innerText; 
         context.clearRect(0, 0, canvas.width, canvas.height);
-        if(happy>0.9){
+        if(happy>0.8){
             mypic.style.transform = "scale(1,1)";
             mypic.innerHTML = "<img src='./images/confusem.gif'>";
         }else if (F>0){
@@ -103,7 +106,7 @@ var connected=false;
                 mypic.style.transform = "scale(1,1)";
                 mypic.style.left = posX+"px";
                 mypic.innerHTML = "<img src='./images/backm.gif'>";
-        }else if (neutral>0.9) {
+        }else if (neutral>0.8) {
                 mypic.style.transform = "scale(1.1,1.1)";
                 mypic.innerHTML = "<img src='./images/guard.gif'>";
             } else if (c == 1) {
@@ -141,10 +144,10 @@ var connected=false;
             oppic.style.transform = "scale(-1,1)";
             oppic.style.left = posOX+"px";
             oppic.innerHTML = "<img src='./images/backm.gif'>";
-        }else if (ohappy >0.9) {
+        }else if (ohappy >0.8) {
             oppic.style.transform = "scale(-1.0,1.0)";
             oppic.innerHTML = "<img src='./images/confusem.gif'>";
-        } else if (oneutral>0.9) {
+        } else if (oneutral>0.8) {
             oppic.style.transform = "scale(-1.1,1.1)";
             oppic.style.left = posOX+"px";
             oppic.innerHTML = "<img src='./images/guard.gif'>";

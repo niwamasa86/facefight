@@ -1,6 +1,6 @@
 // 2で配置したモデルを読み込む。
 Promise.all([
-    faceapi.nets.tinyFaceDetector.load('./models'), // 精度の高い顔検出モデル
+    faceapi.nets.tinyFaceDetector.load('./models'), // 軽い高い顔検出モデル
     faceapi.nets.faceLandmark68Net.load('./models'), // 顔の68個のランドマークの検出モデル
     faceapi.nets.faceExpressionNet.load('./models'),
 ]).catch((e) => {

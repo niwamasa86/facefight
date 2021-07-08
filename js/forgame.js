@@ -154,7 +154,7 @@ function forfly(){
                     if (ohp<0){
                         ohp=0;
                     }
-                }else if (oneutral>0.95){
+                }else if (oneutral>0.8){
                 }else{
                     hit.play();
                     ohp=ohp-10
@@ -171,14 +171,14 @@ function forfly(){
             var Elem = document.getElementById("fly2");
             if(opfl[i][0]=="R"){
             Elem.style.left =800-opfl[i][1]+"px";
-            Elem.style.top ="300px";
+            Elem.style.top ="250px";
             Elem.style.width ="20px";
             Elem.style.position ="absolute";
             Elem.style.transform = "scale(0.1,0.1)";
             Elem.innerHTML="<img src='./images/rock.png'>";
             }else if (opfl[i][0]=="S"){
             Elem.style.left =800-opfl[i][1]+"px";
-            Elem.style.top ="300px";
+            Elem.style.top ="0px";
             Elem.style.width ="20px";
             Elem.style.position ="absolute";
             Elem.style.transform = "scale(0.05,0.05)";
@@ -191,7 +191,7 @@ let brank=5;
 function atack(da){
     if(brank>5){
     if(posOX-posX<100){
-      if(oneutral>0.95){
+      if(oneutral>0.8){
         }else if(ohappy>0.95){
             hit.play();
             ohp=ohp-da*3;
@@ -238,7 +238,7 @@ function hengaoclass(){
         document.getElementById('class3').disabled=true;
         document.getElementById('class4').disabled=true;
         document.getElementById('class5').disabled=true;
-    }else if (neutral>0.9) {
+    }else if (neutral>0.8) {
         document.getElementById('face').innerText="真顔すぎます";
         document.getElementById('class0').disabled=true;
         document.getElementById('class1').disabled=true;
@@ -247,6 +247,7 @@ function hengaoclass(){
         document.getElementById('class4').disabled=true;
         document.getElementById('class5').disabled=true;
     }else{
+        predict.style.display="";
         document.getElementById('face').innerText="変顔です";
         document.getElementById('class0').disabled=false;
         document.getElementById('class1').disabled=false;

@@ -89,7 +89,7 @@ var connected=false;
         brank=brank+1;
         c=predict.innerText; 
         context.clearRect(0, 0, canvas.width, canvas.height);
-        if(happy>0.8){
+        if(happy>0.95){
             mypic.style.transform = "scale(1,1)";
             mypic.innerHTML = "<img src='./images/confusem.gif'>";
         }else if (F>0){
@@ -178,10 +178,7 @@ var connected=false;
         }
         context.fillRect(20,140,myhp,40);
         context.fillRect(500,140,ohp,40);
-         if(connected==false){
             hengaoclass();
-        //   context.drawImage(Imagetop,0,100,1000,600);
-         }
             const data = {
                 ohap:happy,
                 oneu:neutral,

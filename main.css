@@ -72,3 +72,9 @@ canvas {
   left: 0;                /* X座標を0に */
   top: 0;                 /* Y座標を0に */
 }
+.controller-panels{
+  position:absolute;
+  left:700;
+  top:300;
+  z-index:5;
+}

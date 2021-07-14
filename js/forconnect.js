@@ -200,6 +200,10 @@ var connected=false;
         dataConnection.on('open',()=> {
             });
         connected=true;
+        const UI = document.getElementById('controller');
+        UI.style.left="0px";
+        UI.style.top="400px";
+        UI.style.position="";
 
         mediaConnection.on('stream', stream => {
             remoteVideo.srcObject = stream;

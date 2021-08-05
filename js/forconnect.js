@@ -45,147 +45,156 @@ var connected=false;
     });
     
     peer.on("connection", dataConnection => {
-        dataConnection.on("data", ({ohap,oneu,opc,X,oohp,ooF,flar}) => {
+        dataConnection.on("data", ({opc,X,oohp,flar}) => {
             if(oohp<myhp){
             hit.play();
             }
-            ohappy=ohap;
-            oneutral=oneu;
             posOX=X;
             o=opc;
             myhp=oohp;
-            oF=ooF;
             opfl=flar;
           });
       });
-    // document.addEventListener('keydown', (event) => {
-    //     var keyName = event.key;
-    //     if (keyName=='ArrowRight') {
-    //         posX=posX+15;
-    //             const data = {
-    //                 c: c,
-    //                 X: posX,
-    //                 Y: posY,
-    //                 hp: myhp,
-    //               };
-    //         if(connected){
-    //                   dataConnection.send(data);
-    //         }
-    //     } else if (keyName=='ArrowLeft') {
-    //         posX=posX-15;
-    //             const data = {
-    //                 opc: c,
-    //                 X: posX,
-    //                 Y: posY,
-    //                 hp: myhp,
-    //               };
-    //         if(connected){
-    //             dataConnection.send(data);
-    //             }
-    //             }
-    //   });
+
     setInterval(senddata,30);
+    const you=document.getElementById("you");
+    const aite=document.getElementById("aite");
+    var classify=0;
+    var preclassify=0;
     function senddata() {
+        oppic.style.left = posOX+"px";
         brank=brank+1;
         c=predict.innerText; 
         context.clearRect(0, 0, canvas.width, canvas.height);
         if(happy>0.95){
-            mypic.style.transform = "scale(1,1)";
-            mypic.innerHTML = "<img src='./images/confusem.gif'>";
+            classify=0;
         }else if (F>0){
             if(posX<posOX-100){
                 posX=posX+15;
             }
-                mypic.style.left = posX+"px";
-                mypic.style.transform = "scale(1,1)";
-                mypic.innerHTML = "<img src='./images/gom.gif'>";
+            mypic.style.left = posX+"px";
+            classify=1;
+                // mypic.innerHTML = "<img src='./images/gom.gif'>";
         }else if(F<0){
             if(posX>0){
                 posX=posX-15;
             }
-                mypic.style.transform = "scale(1,1)";
-                mypic.style.left = posX+"px";
-                mypic.innerHTML = "<img src='./images/backm.gif'>";
-        }else if (neutral>0.8) {
-                mypic.style.transform = "scale(1.1,1.1)";
-                mypic.innerHTML = "<img src='./images/guard.gif'>";
-            } else if (c == 1) {
-                mypic.style.transform = "scale(1,1)";
-                mypic.style.left = posX+"px";
-                mypic.innerHTML = "<img src='./images/iwanage.gif'>";
-                
+            mypic.style.transform = "scale(1,1)";
+            mypic.style.left = posX+"px";
+            classify=2;
+                // mypic.innerHTML = "<img src='./images/backm.gif'>";
+        }else if (neutral>0.8) {   
+                classify=3;
+        } else if (c == 1) {
+                classify=4;
+                // mypic.innerHTML = "<img src='./images/iwanage.gif'>";
+         
+            } else if (c == 2) {
+                classify=5;
+
+            } else if (c == 3) {
+                classify=6;
+               
+            } else if (c == 4) {
+                classify=7;
+               
+            } else if (c == 5) {
+                classify=8;
+        }        
+        if(classify!=preclassify){
+            console.log(preclassify)
+        if(classify==0){
+            mypic.style.transform = "scale(1,1)";
+            you.src="./images/confusem.gif";
+        }else if(classify==1){
+            mypic.style.transform = "scale(1,1)";
+            you.src="./images/gom.gif";
+        }else if(classify==2){
+            you.src="./images/backm.gif";
+        }else if(classify==3){
+            you.src="./images/guard.gif";
+        }else if(classify==4){
             if(fly.length<1){
                 fly.push(["R",posX+50]);
                }
-            } else if (c == 2) {
-                mypic.style.transform = "scale(1.0,1.0)";
-                mypic.innerHTML = "<img src='./images/shuri.gif'>";
-            if(fly.length<1){
-                fly.push(["S",posX+50]);
-               }
-            } else if (c == 3) {
-                mypic.style.transform = "scale(1.0,1.0)";
-                mypic.innerHTML = "<img src='./images/kick.gif'>";
-                atack(20);
-            } else if (c == 4) {
-                mypic.style.transform = "scale(1.0,1.0)";
-                mypic.innerHTML = "<img src='./images/panchi.gif'>";
-                atack(20);
-            } else if (c == 5) {
-                mypic.style.transform = "scale(1.0,1.0)";
-                mypic.innerHTML = "<img src='./images/upper.gif'>";
-                atack(20);
-        }        
-        if (oF>0){
+            you.src="./images/iwanage.gif"
+        }else if(classify==5){
+            mypic.style.transform = "scale(1.0,1.0)";
+            you.src="./images/shuri.gif";
+          if(fly.length<1){
+            fly.push(["S",posX+50]);
+           }
+            
+        }else if(classify==6){
+            mypic.style.transform = "scale(1.0,1.0)";
+            you.src="./images/kick.gif";
+            atack(20);
+        }else if(classify==7){
+            mypic.style.transform = "scale(1.0,1.0)";
+            you.src="./images/panchi.gif";
+            atack(20);
+        }else if(classify==8){
+            mypic.style.transform = "scale(1.0,1.0)";
+            you.src="./images/upper.gif";
+            atack(20);
+        }
+        preclassify=classify;
+    }
+    if(o!=preo){
+        if (o==0){
              oppic.style.left = posOX+"px";
              oppic.style.transform = "scale(-1,1)";
-             oppic.innerHTML = "<img src='./images/gom.gif'>";
-        }else if(oF<0){
+             aite.src='./images/confusem.gif';
+            //  oppic.innerHTML = "<img src='./images/gom.gif'>";
+        }else if(o==1){
             oppic.style.transform = "scale(-1,1)";
-            oppic.style.left = posOX+"px";
-            oppic.innerHTML = "<img src='./images/backm.gif'>";
-        }else if (ohappy >0.8) {
+            aite.src='./images/gom.gif';
+            // oppic.innerHTML = "<img src='./images/backm.gif'>";
+        }else if (o==2) {
             oppic.style.transform = "scale(-1.0,1.0)";
-            oppic.innerHTML = "<img src='./images/confusem.gif'>";
-        } else if (oneutral>0.8) {
-            oppic.style.transform = "scale(-1.1,1.1)";
-            oppic.style.left = posOX+"px";
-            oppic.innerHTML = "<img src='./images/guard.gif'>";
-        }else if (o == 0) {
-            oppic.style.transform = "scale(-1.1,1.1)";
-            oppic.innerHTML = "<img src='./images/guard.gif'>";
-            } else if (o == 1) {
-            oppic.style.transform = "scale(-1,1)";
-            oppic.style.left = posOX+"px";
-            oppic.innerHTML = "<img src='./images/iwanage.gif'>";
-            } else if (o == 2) {
+            aite.src='./images/backm.gif';
+            // oppic.innerHTML = "<img src='./images/confusem.gif'>";
+        } else if (o == 3) {
             oppic.style.transform = "scale(-1.0,1.0)";
-            oppic.innerHTML = "<img src='./images/shuri.gif'>";
-            } else if (o == 3) {
-            oppic.style.transform = "scale(-1.0,1.0)";
-            oppic.innerHTML = "<img src='./images/kick.gif'>";
+            aite.src='./images/guard.gif';
+            // oppic.innerHTML = "<img src='./images/guard.gif'>";
             } else if (o == 4) {
-            oppic.style.transform = "scale(-1.0,1.0)";
-            oppic.innerHTML = "<img src='./images/panchi.gif'>";
+            oppic.style.transform = "scale(-1,1)";
+            oppic.style.left = posOX+"px";
+            aite.src='./images/iwanage.gif';
+            // oppic.innerHTML = "<img src='./images/iwanage.gif'>";
             } else if (o == 5) {
             oppic.style.transform = "scale(-1.0,1.0)";
-            oppic.innerHTML = "<img src='./images/upper.gif'>";
+            aite.src='./images/shuri.gif';
+            // oppic.innerHTML = "<img src='./images/shuri.gif'>";
+            } else if (o == 6) {
+            oppic.style.transform = "scale(-1.0,1.0)";
+            aite.src='./images/kick.gif';
+            // oppic.innerHTML = "<img src='./images/kick.gif'>";
+            } else if (o == 7) {
+            oppic.style.transform = "scale(-1.0,1.0)";
+            aite.src='./images/panchi.gif';
+            // oppic.innerHTML = "<img src='./images/panchi.gif'>";
+            } else if (o == 8) {
+            oppic.style.transform = "scale(-1.0,1.0)";
+            aite.src='./images/upper.gif';
+            // oppic.innerHTML = "<img src='./images/upper.gif'>";
             }
+            preo=o;
+        }
         if(fly.length>=1 ||opfl.length>=1){
             forfly();
         }else{
+            document.getElementById("fly1").innerText="";
             document.getElementById("fly2").innerText="";
         }
         context.fillRect(20,140,myhp,40);
         context.fillRect(500,140,ohp,40);
             hengaoclass();
             const data = {
-                ohap:happy,
-                oneu:neutral,
-                opc: c,
-                X: 800-posX,
+                opc:classify,
+                X: 1000-190-posX,
                 oohp: ohp,
-                ooF:F,
                 flar:fly,
               };
             if(connected){

@@ -3,14 +3,14 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <title>face fight</title>
   <link rel="stylesheet" href="main.css">
-  <link rel="preload" href="images/back.gif" as="image">
+  <!-- <link rel="preload" href="images/back.gif" as="image">
   <link rel="preload" href="images/go.gif" as="image">
   <link rel="preload" href="images/guard.png" as="image">
   <link rel="preload" href="images/kick.gif" as="image">
   <link rel="preload" href="images/panchi.gif" as="image">
   <link rel="preload" href="images/rock.png" as="image">
   <link rel="preload" href="images/shur.png" as="image">
-  <link rel="preload" href="images/upper.gif" as="image">
+  <link rel="preload" href="images/upper.gif" as="image"> -->
 </head>
 <body>
   <div id="trainer">
@@ -118,8 +118,12 @@
   <div id="webremote">
     <video autoplay="" playsinline="" muted="" id="js-remote-video" width="1000" height="800" ></video>
     <canvas id="canvas" width="1000" height="800"></canvas>
-     <div id="mypic"></div>
-     <div id="oppic"> </div>
+     <div id="mypic">
+      <img id="you" src='./images/guard.gif'>
+     </div>
+     <div id="oppic">
+      <img id="aite" src='./images/guard.gif'>
+        </div>
      <div id="fly0"></div>
      <div id="fly1"></div>
      <div id="fly2"></div>

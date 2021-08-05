@@ -17,8 +17,6 @@ var fly=[];
 var opfl=[];
 let happy=0;
 let neutral=1;
-let ohappy;
-let oneutral;
 let flyout=0;
 let F=0;
 const mypic=document.getElementById("mypic");
@@ -26,110 +24,15 @@ const oppic=document.getElementById("oppic");
 const predict=document.getElementById('prediction');
 context.fillStyle = "rgb(5, 255, 20)";
 var hit = new Audio('images/hit.mp3');
-
-// function drawLoop() {
-//     requestAnimationFrame(drawLoop);                   
-//     context.clearRect(0, 0, canvas.width, canvas.height);
-//     c=predict.innerText; 
-//     if(happy>0.8){
-//         mypic.style.transform = "scale(1,1)";
-//         mypic.innerHTML = "<img src='./images/confuse.gif'>";
-//     }else if (F>0){
-//         if(posX<posOX-100){
-//             posX=posX+F;
-//         }
-//             mypic.style.left = posX+"px";
-//             mypic.style.transform = "scale(1,1)";
-//             mypic.innerHTML = "<img src='./images/go.gif'>";
-//     }else if(F<0){
-//         if(posX>0){
-//             posX=posX+F;
-//         }
-//             mypic.style.transform = "scale(1,1)";
-//             mypic.style.left = posX+"px";
-//             mypic.innerHTML = "<img src='./images/back.gif'>";
-//     }else if (neutral>0.5) {
-//             mypic.style.transform = "scale(1.1,1.1)";
-//             mypic.innerHTML = "<img src='./images/guard.gif'>";
-//         } else if (c == 1) {
-//             mypic.style.transform = "scale(1,1)";
-//             mypic.style.left = posX+"px";
-//             mypic.innerHTML = "<img src='./images/iwanage.gif'>";
-//         if(fly.length<1){
-//             fly.push(["R",posX+50]);
-//            }
-//         } else if (c == 2) {
-//             mypic.style.transform = "scale(1.0,1.0)";
-//             mypic.innerHTML = "<img src='./images/shuri.gif'>";
-//         if(fly.length<1){
-//             fly.push(["S",posX+50]);
-//            }
-//         } else if (c == 3) {
-//             mypic.style.transform = "scale(1.0,1.0)";
-//             mypic.innerHTML = "<img src='./images/kick.gif'>";
-//         } else if (c == 4) {
-//             mypic.style.transform = "scale(1.0,1.0)";
-//             mypic.innerHTML = "<img src='./images/panchi.gif'>";
-//         } else if (c == 5) {
-//             mypic.style.transform = "scale(1.0,1.0)";
-//             mypic.innerHTML = "<img src='./images/upper.gif'>";
-//     }        
-//     if (oF>0){
-//          oppic.style.left = posOX+"px";
-//          oppic.style.transform = "scale(-1,1)";
-//          oppic.innerHTML = "<img src='./images/go.gif'>";
-//     }else if(oF<0){
-//         oppic.style.transform = "scale(-1,1)";
-//         oppic.style.left = posOX+"px";
-//         oppic.innerHTML = "<img src='./images/back.gif'>";
-//     }else if (ohappy >0.5) {
-//         oppic.style.transform = "scale(-1.0,1.0)";
-//         oppic.innerHTML = "<img src='./images/confuse.gif'>";
-//     } else if (oneutral>0.5) {
-//         oppic.style.transform = "scale(-1.1,1.1)";
-//         oppic.style.left = posOX+"px";
-//         oppic.innerHTML = "<img src='./images/guard.gif'>";
-//     }else if (o == 0) {
-//         oppic.style.transform = "scale(-1.1,1.1)";
-//         oppic.innerHTML = "<img src='./images/guard.gif'>";
-//         } else if (o == 1) {
-//         oppic.style.transform = "scale(-1,1)";
-//         oppic.style.left = posOX+"px";
-//         oppic.innerHTML = "<img src='./images/iwanage.gif'>";
-//         } else if (o == 2) {
-//         oppic.style.transform = "scale(-1.0,1.0)";
-//         oppic.innerHTML = "<img src='./images/shuri.gif'>";
-//         } else if (o == 3) {
-//         oppic.style.transform = "scale(-1.0,1.0)";
-//         oppic.innerHTML = "<img src='./images/kick.gif'>";
-//         } else if (o == 4) {
-//         oppic.style.transform = "scale(-1.0,1.0)";
-//         oppic.innerHTML = "<img src='./images/panchi.gif'>";
-//         } else if (o == 5) {
-//         oppic.style.transform = "scale(-1.0,1.0)";
-//         oppic.innerHTML = "<img src='./images/upper.gif'>";
-//         }
-//     if(fly.length>=1 ||opfl.length>=1){
-//         forfly();
-//     }else{
-//         document.getElementById("fly2").innerText="";
-//     }
-//     context.fillStyle = "rgb(5, 255, 20)";
-//     context.fillRect(20,140,myhp,40);
-//     context.fillRect(500,140,ohp,40);
-//      if(connected==false){
-//         hengaoclass();
-//     //   context.drawImage(Imagetop,0,100,1000,600);
-//      }
-
-// }
-// drawLoop();      
+ 
 const Elem1 = document.getElementById("fly1");
 const Elem2 = document.getElementById("fly2");
+
+//飛行物体に関する関数
+//飛行物体がある時ループ内で呼び出される
 function forfly(){
     if (fly.length>0){
         for(let i=0;i<fly.length;i++){
-            
             if(fly[i][0]=="R"){
             Elem1.style.left =fly[i][1]+"px";
             Elem1.style.top ="250px";
@@ -211,6 +114,14 @@ function atack(da){
             brank=0;
         }
     }
+    }
+}
+
+function finish(){
+    if(ohp<=0){
+    alert("YOUWIN");
+    }else{
+    alert("YOULOSE");
     }
 }
 

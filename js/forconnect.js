@@ -127,7 +127,7 @@ let flyout=0;
         } else if (c == 5) {
                 classify=8;
         } else if(c == 0){
-            classify=9;
+                classify=9;
         }
 
         if(classify!=preclassify){
@@ -169,8 +169,10 @@ let flyout=0;
             mypic.style.transform = "scale(1.0,1.0)";
             you.src="./images/beam.gif";
           if(fly.length<1){
+              if(connected){
             fly.push(["B",posX+50]);
            }  
+        }
         }
         preclassify=classify;
     }

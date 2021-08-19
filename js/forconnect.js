@@ -1,6 +1,15 @@
 const Peer = window.Peer;
 var dataConnection;
 var connected=false;
+var canvas = document.getElementById("canvas");  
+var context = canvas.getContext("2d");   
+const result=document.getElementById("result");
+const predict=document.getElementById('prediction');
+const mypic=document.getElementById("mypic");
+const oppic=document.getElementById("oppic");
+let happy=0;
+let neutral=1;
+let flyout=0;
 (async function main() {
     const localVideo = document.getElementById('js-local-video');
     const localId = document.getElementById('js-local-id');
@@ -43,11 +52,13 @@ var connected=false;
         });
 
     });
+
 //相手からのデータ受け取り
     peer.on("connection", dataConnection => {
         dataConnection.on("data", ({opc,X,oohp,flar}) => {
             if(oohp<myhp){
             hit.play();
+            you.src="./images/hit.gif";
             }
             posOX=X;
             o=opc;
@@ -109,16 +120,16 @@ var connected=false;
                 classify=4;
     　  } else if (c == 2) {
                 classify=5;
-
         } else if (c == 3) {
                 classify=6;
-               
         } else if (c == 4) {
                 classify=7;
-               
         } else if (c == 5) {
                 classify=8;
-        }        
+        } else if(c == 0){
+            classify=9;
+        }
+
         if(classify!=preclassify){
             console.log(preclassify)
         if(classify==0){
@@ -154,6 +165,12 @@ var connected=false;
             mypic.style.transform = "scale(1.0,1.0)";
             you.src="./images/upper.gif";
             atack(20);
+        }else if (classify==9){
+            mypic.style.transform = "scale(1.0,1.0)";
+            you.src="./images/beam.gif";
+          if(fly.length<1){
+            fly.push(["B",posX+50]);
+           }  
         }
         preclassify=classify;
     }
@@ -187,7 +204,12 @@ var connected=false;
         } else if (o == 8) {
             oppic.style.transform = "scale(-1.0,1.0)";
             aite.src='./images/upper.gif';
-            }
+        } else if (o == 9){
+            oppic.style.transform = "scale(-1,1)";
+            oppic.style.left = posOX+"px";
+            aite.src='./images/beam.gif';
+        }
+    
             preo=o;
         }
         if(fly.length>=1 ||opfl.length>=1){
@@ -199,7 +221,7 @@ var connected=false;
         context.fillRect(20,140,myhp,40);
         context.fillRect(500,140,ohp,40);
             hengaoclass();
-        if(ohp<=0 || myhp<0){
+        if(ohp<=0 || myhp<=0){
             finished=true;
         }
     }
@@ -233,3 +255,85 @@ var connected=false;
     });
     peer.on('error', console.error);
 })();
+
+
+let brank=5;
+function atack(da){
+    if(brank>5){
+    if(posOX-posX<100){
+      if(o==3){
+        }else if(o==0){
+            hit.play();
+            aite.src="./images/hit.gif";
+            ohp=ohp-da*3;
+            if(ohp<0){
+                ohp=0;
+            }
+            brank=0;
+        }else{
+            hit.play();
+            aite.src="./images/hit.gif";
+            ohp=ohp-da;
+            if(ohp<0){
+                ohp=0;
+            }
+            brank=0;
+        }
+    }
+    }
+}
+
+function finish(){
+    result.style.top="350px";
+    result.style.left="300px";
+    if(ohp<=0){
+    result.innerHTML="<img src='./images/youwin.jpg'>"
+    }else{
+　　 result.innerHTML="<img src='./images/youlose.jpg'>"
+    }
+}
+
+function hengaoclass(){
+    if(happy>0.95){
+        document.getElementById('face').innerText="笑い";
+        document.getElementById('class0').disabled=true;
+        document.getElementById('class1').disabled=true;
+        document.getElementById('class2').disabled=true;
+        document.getElementById('class3').disabled=true;
+        document.getElementById('class4').disabled=true;
+        document.getElementById('class5').disabled=true;
+    }else if (F>0){
+        document.getElementById('face').innerText="傾いています";
+        document.getElementById('class0').disabled=true;
+        document.getElementById('class1').disabled=true;
+        document.getElementById('class2').disabled=true;
+        document.getElementById('class3').disabled=true;
+        document.getElementById('class4').disabled=true;
+        document.getElementById('class5').disabled=true;
+    }else if(F<0){
+        document.getElementById('face').innerText="傾いています";
+        document.getElementById('class0').disabled=true;
+        document.getElementById('class1').disabled=true;
+        document.getElementById('class2').disabled=true;
+        document.getElementById('class3').disabled=true;
+        document.getElementById('class4').disabled=true;
+        document.getElementById('class5').disabled=true;
+    }else if (neutral>0.8) {
+        document.getElementById('face').innerText="真顔";
+        document.getElementById('class0').disabled=true;
+        document.getElementById('class1').disabled=true;
+        document.getElementById('class2').disabled=true;
+        document.getElementById('class3').disabled=true;
+        document.getElementById('class4').disabled=true;
+        document.getElementById('class5').disabled=true;
+    }else{
+        predict.style.display="";
+        document.getElementById('face').innerText="変顔";
+        document.getElementById('class0').disabled=false;
+        document.getElementById('class1').disabled=false;
+        document.getElementById('class2').disabled=false;
+        document.getElementById('class3').disabled=false;
+        document.getElementById('class4').disabled=false;
+        document.getElementById('class5').disabled=false;
+    }
+}

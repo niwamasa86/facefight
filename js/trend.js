@@ -22,6 +22,7 @@ async function getLandMarks(){
     happy=faceData.expressions.happy;
 }
 
+let F=0;
 function drawLandMarks(positions) {
     let kata=(positions[36].y-positions[45].y)/(positions[36].x-positions[45].x);
     if(kata>0.3){

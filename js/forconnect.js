@@ -167,7 +167,7 @@ let flyout=0;
             atack(20);
         }else if (classify==9){
             mypic.style.transform = "scale(1.0,1.0)";
-            you.src="./images/beam.gif";
+            you.src="./images/beam.png";
           if(fly.length<1){
               if(connected){
             fly.push(["B",posX+50]);
@@ -209,7 +209,7 @@ let flyout=0;
         } else if (o == 9){
             oppic.style.transform = "scale(-1,1)";
             oppic.style.left = posOX+"px";
-            aite.src='./images/beam.gif';
+            aite.src='./images/beam.png';
         }
     
             preo=o;

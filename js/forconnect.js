@@ -262,7 +262,7 @@ let flyout=0;
 let brank=5;
 function atack(da){
     if(brank>5){
-    if(posOX-posX<200){
+    if(posOX-posX<150){
       if(o==3){
         }else if(o==0){
             hit.play();
